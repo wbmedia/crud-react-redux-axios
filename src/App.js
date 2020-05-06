@@ -8,9 +8,14 @@ import Products from './components/Products';
 import NuevoProducto from './components/NuevoProducto';
 import EditarProducto from './components/EditarProducto';
 
+// Redux
+import { Provider } from 'react-redux';
+import store from './store/store';
+
 function App() {
   return (
     <Router>
+      <Provider store={store}>
       <Header />
       <div className="containe mt-5">
         <Switch>
@@ -19,6 +24,7 @@ function App() {
           <Route exact path='/productos/editar/:id' component={EditarProducto} />
         </Switch>
       </div>
+      </Provider>
     </Router>
   );
 }
