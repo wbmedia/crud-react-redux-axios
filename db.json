@@ -19,6 +19,31 @@
       "id": 4,
       "nombre": "Jugo de Papaya",
       "precio": "1.99"
+    },
+    {
+      "nombre": "coca cola",
+      "precio": 15,
+      "id": 5
+    },
+    {
+      "nombre": "pepsi cola",
+      "precio": 13,
+      "id": 6
+    },
+    {
+      "nombre": "comida china",
+      "precio": 100,
+      "id": 7
+    },
+    {
+      "nombre": "Pepsi Cola",
+      "precio": 13,
+      "id": 8
+    },
+    {
+      "nombre": "Caldo de Pollo",
+      "precio": 100,
+      "id": 9
     }
   ]
 }

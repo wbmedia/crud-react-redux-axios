@@ -14,28 +14,34 @@ import {
 
 import { createNuevoProductoAction } from "../actions/productoActions";
 
-const NuevoProducto = () => {
+const NuevoProducto = ({ history }) => {
   // state local
   const [nombre, guardarNombre] = useState("");
   const [precio, guardarPrecio] = useState(0);
 
   const dispatch = useDispatch();
 
-  const agregarProducto = producto => dispatch(createNuevoProductoAction(producto));
+  const cargando = useSelector((state) => state.productos.loading);
+
+  const agregarProducto = (producto) =>
+    dispatch(createNuevoProductoAction(producto));
 
   const submitNuevoProducto = (e) => {
     e.preventDefault();
 
     // validamos
-    if(nombre.trim === '' || precio <= 0 ) {
+    if (nombre.trim === "" || precio <= 0) {
       return;
     }
 
     // crear el producto
     agregarProducto({
       nombre,
-      precio
+      precio,
     });
+
+    // redireccion al home
+    history.push("/");
   };
 
   return (
@@ -78,6 +84,7 @@ const NuevoProducto = () => {
             </Form>
           </CardBody>
         </Card>
+        {cargando ? <p>Loading ... </p> : null}
       </Col>
     </Row>
   );
