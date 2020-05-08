@@ -1,40 +1,55 @@
-import React, { Fragment } from "react";
-import { Table } from "reactstrap";
+import React, { Fragment, useEffect } from "react";
+import { Table, Container, Row } from "reactstrap";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getProductsActions } from "./../actions/productoActions";
+
+import Producto from "./Producto";
 
 const Products = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // fetch api
+    const getProducts = () => dispatch(getProductsActions());
+    getProducts();
+  }, []);
+
+  const productos = useSelector((state) => state.productos.productos);
+  const error = useSelector((state) => state.productos.error);
+  const cargando = useSelector((state) => state.productos.loading);
   return (
     <Fragment>
-      <h2 className="text-center my-5">Listado de Productos</h2>
-      <Table className="table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </Table>
+      <Container>
+        <Row>
+          <h2 className="text-center my-5">Listado de Productos</h2>
+          {error ? (
+            <p className="font-weigth-bold alert alert-danger text-center mt-4">
+              Woops hubo un error al cargar los productos
+            </p>
+          ) : null}
+          {cargando ? (
+            <p className="font-weigth-bold text-center">Loading ...</p>
+          ) : null}
+          <Table className="table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.length === 0
+                ? "No Products Added Yet!!"
+                : productos.map((producto) => (
+                    <Producto key={producto.id} producto={producto} />
+                  ))}
+            </tbody>
+          </Table>
+        </Row>
+      </Container>
     </Fragment>
   );
 };
