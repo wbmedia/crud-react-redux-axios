@@ -8,18 +8,21 @@ import {
   DELETE_PRODUCT,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAILURE,
-} from "../types";
+  EDIT_PRODUCT,
+  EDIT_PRODUCT_SUCCESS,
+  EDIT_PRODUCT_FAILURE,
+} from '../types';
 
 const initialState = {
   productos: [],
   error: false,
   loading: false,
   productoeliminar: null,
+  productoeditar: null,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    
     // ADD PRODUCT REDUCER
     case AGREGAR_PRODUCTO:
       return {
@@ -39,7 +42,7 @@ export default function (state = initialState, action) {
         error: action.payload,
       };
 
-    // FETCH PRODUCT REDUCER  
+    // FETCH PRODUCT REDUCER
     case FETCH_PRODUCTOS:
       return {
         ...state,
@@ -70,14 +73,33 @@ export default function (state = initialState, action) {
         productos: state.productos.filter(
           (productos) => productos.id !== state.productoeliminar
         ),
-        productoeliminar: null
+        productoeliminar: null,
       };
     case DELETE_PRODUCT_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload
-      }  
+        error: action.payload,
+      };
+    case EDIT_PRODUCT:
+      return {
+        ...state,
+        productoeditar: action.payload,
+      };
+    case EDIT_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        productoeditar: null,
+        productos: state.productos.map((producto) =>
+          producto.id === producto.payload.id
+            ? (producto = action.payload)
+            : producto
+        ),
+      };
+    case EDIT_PRODUCT_FAILURE:
+      return {
+        ...state,
+      };
     default:
       return state;
   }
