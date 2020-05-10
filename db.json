@@ -1,24 +1,9 @@
 {
   "productos": [
     {
-      "nombre": "Jamon de Pavo",
-      "precio": "49.99",
+      "nombre": "computadora",
+      "precio": 15000,
       "id": 1
-    },
-    {
-      "nombre": "Salchica de Cerdo",
-      "precio": "45.00",
-      "id": 2
-    },
-    {
-      "nombre": "Queso de Puerco",
-      "precio": "49.99",
-      "id": 3
-    },
-    {
-      "nombre": "Chorizo de Res y Cerdo",
-      "precio": "40.00",
-      "id": 4
     }
   ]
 }
